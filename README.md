@@ -1,7 +1,9 @@
 # PROYECTO DE SIMPLE SHELL💻
-#### **DESCRIPCION**
+#### **DESCRIPTION**
 Simple shell or command interpreter or command interpreter is the computer program that provides a user interface to access the services of the operating system.
-##Compilation💻
+
+## Compilation💻
+
 Your shell will be compiled this way:
 
 	gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
