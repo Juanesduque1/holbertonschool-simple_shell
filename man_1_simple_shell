@@ -3,6 +3,24 @@
 .SH NAME
 hsh - POSIX-compliant command interpreter
 
+.SH SYNOPSIS
+hsh [options]
+
+.SH DESCRIPTION
+This project is a basic recreation of the Unix Shell command interpreter, it was made in Holberton School for the software development program.
+
+.SH OPTIONS
+These options are the allowed commands that when executed performs the following actions:
+
+.B -ls [option]
+.RS
+The ls command displays the names of files and directories contained within the current directory, as well as any requested, associated information, depending on the invoked option.
+
+.RE
+.B -betty [option]
+.RS
+The betty command is a C coding and commenting style checker, this option will check if the file/s passed as argument/s fits the Betty Style.
+
 .SH AUTHORS
 
 Juan Esteban Duque @Juanesduque1
