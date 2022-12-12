@@ -1,4 +1,7 @@
-.TH SIMPLE SHELL 1 12-12-2022 SIMPLE SHELL\ 0.1 Library\ Program\ Manual
+.TH SIMPLE\ SHELL 1 12-12-2022 SIMPLE\ SHELL\ 0.1 General\ Commands\ Manual
+
+.SH NAME
+hsh - POSIX-compliant command interpreter
 
 .SH AUTHORS
 
