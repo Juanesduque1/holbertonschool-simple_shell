@@ -21,6 +21,43 @@ After execution, the command to run our Shell and be able to enter action comman
 
 	$ ./hsh
 
+## Command list
+The next list is a summarized chart of the allowed commands that can be executed in our shell.
+| Command  | Description |
+| ------------- |:-------------:|
+| ls      | Displays the names of files and directories contained within the current directory.    |
+| betty      | Checks if the coding and commenting style fits Betty style code.    |
+| pwd      | Prints the full path of the current working directory. |
+| env      | Set environment and execute command or print environment.    |
+| exit      | The exit command causes normal process termination of the Shell.    |
+
+## Usage
+
+This shell can be executed two different ways, the first one is in the interactive mode, this means that after the shell is compiled, the user can call the commands directly in the executable file. Working as the following:
+
+	$ ./hsh
+	($) /bin/ls
+	hsh main.c shell.c
+	($)
+	($) exit
+	$
+
+The second option is execute it in non-interactive mode, this means that after the compilation, the shell is going to be executed by entering commands using a pipe line. An example of this execution will be:
+
+	$ echo "/bin/ls" | ./hsh
+	hsh main.c shell.c test_ls_2
+	$
+	$ cat test_ls_2
+	/bin/ls
+	/bin/ls
+	$
+	$ cat test_ls_2 | ./hsh
+	hsh main.c shell.c test_ls_2
+	hsh main.c shell.c test_ls_2
+	$
+
+
+
 ## Flow chart 📊
 
 ## Authors 🖊

@@ -21,6 +21,22 @@ The ls command displays the names of files and directories contained within the 
 .RS
 The betty command is a C coding and commenting style checker, this option will check if the file/s passed as argument/s fits the Betty Style.
 
+.RE
+.B -pwd [option]
+.RS
+Prints the full path of the current working directory.
+
+.RE
+.B -env [option]
+.RS
+Set environment and execute command (depending on the option invoked), or print environment.
+
+.RE
+.B -exit [option]
+.RS
+The exit command causes normal process termination of the Shell.
+
+
 .SH AUTHORS
 
 Juan Esteban Duque @Juanesduque1
