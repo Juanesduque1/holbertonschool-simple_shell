@@ -8,7 +8,7 @@
 #include <unistd.h>
 
 /* Prototypes*/
-int main();
+int main(void);
 
 /* Structures */
 
