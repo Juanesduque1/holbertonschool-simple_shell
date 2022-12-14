@@ -8,18 +8,18 @@
 
 int main(void)
 {
+	char *buff = NULL;
+	size_t len = 0;
+	ssize_t return_len;
+
 	while (1)
 	{
-		char command[100];
-
 		printf("$ ");
-		scanf(" %99[^\n]", command);
-		if (!strcmp("exit", command))
-		{
+		return_len = getline(&buff, &len, stdin);
+		buff[return_len - 1] = '\0';
+		printf(" %s\n", buff);
+		if (!strcmp("exit", buff) != 0)
 			break;
-		}
-
-		printf("%s\n", command);
 	}
 	return (0);
 }
