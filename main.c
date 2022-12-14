@@ -10,16 +10,22 @@ int main(void)
 {
 	char *buff = NULL;
 	size_t len = 0;
-	ssize_t return_len;
+	ssize_t return_len = 0;
+	char *argv[] = {"/bin/ls", "-l", "/usr/", NULL};
 
 	while (1)
 	{
 		printf("$ ");
 		return_len = getline(&buff, &len, stdin);
 		buff[return_len - 1] = '\0';
-		printf(" %s\n", buff);
+		/*printf(" %s\n", buff);*/
 		if (strcmp("exit", buff) == 0)
 			break;
+
+		if (execve(buff, NULL, NULL) == -1)
+			perror("Error");
+
+		printf(" %s\n", buff);
 	}
 	return (0);
 }
