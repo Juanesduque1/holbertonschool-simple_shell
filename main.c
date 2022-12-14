@@ -11,21 +11,30 @@ int main(void)
 	char *buff = NULL;
 	size_t len = 0;
 	ssize_t return_len = 0;
-	char *argv[] = {"/bin/ls", "-l", "/usr/", NULL};
+	int p_id;
+	char *arg[100];
 
 	while (1)
 	{
-		printf("$ ");
+		if (isatty(0))
+			printf("$ ");
 		return_len = getline(&buff, &len, stdin);
-		buff[return_len - 1] = '\0';
-		/*printf(" %s\n", buff);*/
+		if (return_len == -1)
+			break;
+		buff[return_len - 1] == '\0';
+		arg[0] = buff;
+		arg[1] = NULL;
 		if (strcmp("exit", buff) == 0)
 			break;
 
-		if (execve(buff, NULL, NULL) == -1)
-			perror("Error");
-
-		printf(" %s\n", buff);
+		p_id = fork();
+		if (p_id == 0)
+		{
+			if (execve(buff, arg, NULL) == -1)
+				perror("Error");
+		}
+		else
+			wait(NULL);
 	}
 	return (0);
 }
