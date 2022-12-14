@@ -18,7 +18,7 @@ int main(void)
 		return_len = getline(&buff, &len, stdin);
 		buff[return_len - 1] = '\0';
 		printf(" %s\n", buff);
-		if (!strcmp("exit", buff) != 0)
+		if (strcmp("exit", buff) == 0)
 			break;
 	}
 	return (0);
