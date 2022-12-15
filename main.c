@@ -40,7 +40,7 @@ int main(void)
 		{
 
 			strcpy(str, string_path);
-			while (t = strtok(s, ":"))
+			while ((t = strtok(s, ":")) != NULL)
 			{
 				printf("%s\n", t);
 				s = NULL;
