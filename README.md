@@ -59,6 +59,7 @@ The second option is execute it in non-interactive mode, this means that after t
 
 
 ## Flow chart 📊
+<img src="https://i.imgur.com/6SlivhO.jpeg" alt="flowchart">
 
 ## Authors 🖊
 * Juan Esteban Duque <a href="https://github.com/Juanesduque1" rel="nofollow"><img align="center" alt="github" src="https://www.vectorlogo.zone/logos/github/github-tile.svg" height="24" /></a>
