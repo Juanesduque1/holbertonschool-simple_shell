@@ -11,8 +11,9 @@ int main(void)
 	char *buff = NULL;
 	size_t len = 0;
 	ssize_t return_len = 0;
-	int p_id;
-	char *arg[100];
+	int p_id, i = 0;
+	char *arg[100], *string_path = getenv("PATH");
+	char str[100], *s = str, *t = NULL;
 
 	while (1)
 	{
@@ -30,14 +31,34 @@ int main(void)
 		if (strcmp("exit", buff) == 0)
 			break;
 
+		while (string_path[i])
+		{
+			i++;
+		}
+
+		if (strcmp(buff, "PATH") == 0)
+		{
+
+			strcpy(str, string_path);
+			while (t = strtok(s, ":"))
+			{
+				printf("%s\n", t);
+				s = NULL;
+			}
+		}
+		/*funcion_validar_ruta(ruta + comando )
+	else
+	print eror*/
 		p_id = fork();
 		if (p_id == 0)
 		{
+
 			if (execve(buff, arg, NULL) == -1)
 				perror("Error");
 		}
 		else
 			wait(NULL);
 	}
+
 	return (0);
 }
