@@ -18,12 +18,15 @@ int main(void)
 	{
 		if (isatty(0))
 			printf("$ ");
+
 		return_len = getline(&buff, &len, stdin);
 		if (return_len == -1)
 			break;
-		buff[return_len - 1] == '\0';
+
+		buff[return_len - 1] = '\0';
 		arg[0] = buff;
 		arg[1] = NULL;
+
 		if (strcmp("exit", buff) == 0)
 			break;
 
