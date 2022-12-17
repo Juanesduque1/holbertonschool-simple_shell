@@ -7,10 +7,15 @@
 #include <string.h>
 #include <sys/wait.h>
 #include <unistd.h>
+#include <sys/stat.h>
 
 /* Prototypes*/
 int main(void);
-/*int main(int ac, char **av, char **env);*/
+char **_strtok(char *string_path);
+int _strlen(char *s);
+int _strcmp(char *s1, char *s2);
+char *_strcpy(char *dest, char *src);
+char *_getenv(const char *name);
 
 /* Structures */
 

@@ -1,22 +1,6 @@
 #include "shell.h"
 
 /**
-**_fork - Executes fork function
-*@buff: Buffer that contains command
-*@arg: Array to allocate arguments
-*
-*Return: Always 0
-*/
-
-void _fork(char *buff, char *arg)
-{
-	if (execve(buff, &arg, NULL) == -1)
-		perror("Error");
-	else
-		wait(NULL);
-}
-
-/**
 **_strtok - Executes strtok function to get PATH
 *@buff: Buffer that contains command
 *@string_path: Length of command
@@ -24,23 +8,26 @@ void _fork(char *buff, char *arg)
 *Return: Always 0
 */
 
-void _strtok(char *buff, char *string_path)
+char **_strtok(char *string_path)
 {
-	int i = 0;
-	char str[100], *s = str, *t = NULL;
+	int i = 0, j = 0;
+	char *t;
+	char **array;
 
+	array = (char **)malloc(sizeof(char *) * 1024);
 	while (string_path[i])
 		i++;
-
-	if (strcmp(buff, "PATH") == 0)
+	while ((t = strtok(string_path, ":")) != NULL)
 	{
-		strcpy(str, string_path);
-		while ((t = strtok(s, ":")) != NULL)
+		if (t == NULL)
 		{
-			printf("%s\n", t);
-			s = NULL;
+			break;
 		}
+		array[j] = t;
+		string_path = NULL;
+		j++;
 	}
+	return (&(*array));
 }
 
 /**
@@ -51,10 +38,10 @@ void _strtok(char *buff, char *string_path)
 
 int main(void)
 {
-	char *buff = NULL;
+	char *buff = NULL, **array_main, *slash = "/";
 	size_t len = 0;
-	ssize_t return_len = 0;
-	int p_id, i = 0;
+	ssize_t buff_len = 0;
+	int p_id, j = 0, len_address;
 	char *string_path = getenv("PATH"), *arg[100];
 
 	while (1)
@@ -62,23 +49,39 @@ int main(void)
 		if (isatty(0))
 			printf("$ ");
 
-		return_len = getline(&buff, &len, stdin);
-		if (return_len == -1)
+		buff_len = getline(&buff, &len, stdin);
+		if (buff_len == -1)
 			break;
 
-		buff[return_len - 1] = '\0';
+		buff[buff_len - 1] = '\0';
 		arg[0] = buff;
 		arg[1] = NULL;
 
 		if (strcmp("exit", buff) == 0)
 			break;
-
-		_strtok(buff, string_path);
-
-		p_id = fork();
-		if (p_id == 0)
-			_fork(buff, *arg);
+		if (strcmp(buff, "PATH") == 0)
+			array_main = _strtok(string_path);
+		printf("%s\n%s\n%s\n", array_main[10], array_main[3], array_main[13]);
+		/**while (array_main[j] != NULL)
+		{
+			len_address = _strlen(array_main[j]);
+			if (_strcmp(array_main[j][len_address - 1], slash) != 0)
+			{
+				array_main[j][len_address] = slash;
+			}
+			array_main[j][len_address + 1] = buff;
+			array_main[j][len_address + 2] = "\0";
+			j++;
+		}**/
 	}
+	p_id = fork();
+	if (p_id == 0)
+	{
+		if (execve(buff, arg, NULL) == -1)
+			perror("Error");
+	}
+	else
+		wait(NULL);
 
 	return (0);
 }
