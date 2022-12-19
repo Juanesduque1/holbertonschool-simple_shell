@@ -1,6 +1,62 @@
 #include "shell.h"
 
 /**
+**_strcat - Concatenate two strings
+*@dest: Variable of the destination
+*@src: Variable of the string
+*
+*Return: Always 0
+*/
+
+char *_strcat(char *dest, char *str)
+{
+	int i = 0;
+	int j = 0;
+
+	while (dest[i] != '\0')
+		i++;
+
+	while (str[j] != '\0')
+	{
+		dest[i + j] = str[j];
+		j++;
+	}
+	dest[i + j] = '\0';
+	return (dest);
+}
+
+/**
+**check_array - Checks if array's address exists
+*@array_main: Array of addresses
+*@buff: Buffer that contains command
+*
+*Return: Always 0
+*/
+
+char *check_array(char **array_main, char *buff)
+{
+	char *final_path;
+	int j = 0, len_address;
+	struct stat info;
+
+	while (array_main[j] != NULL)
+	{
+		len_address = strlen(array_main[j]);
+		if (array_main[j][len_address - 1] != '/')
+			final_path = _strcat(array_main[j], "/");
+
+		final_path = _strcat(array_main[j], buff);
+
+		if (stat(final_path, &info) == 0)
+			break;
+
+		j++;
+	}
+
+	return (final_path);
+}
+
+/**
 **_strtok - Executes strtok function to get PATH
 *@buff: Buffer that contains command
 *@string_path: Length of command
@@ -38,7 +94,7 @@ char **_strtok(char *string_path)
 
 int main(void)
 {
-	char *buff = NULL, **array_main, *slash = "/";
+	char *buff = NULL, **array_main, *final_path;
 	size_t len = 0;
 	ssize_t buff_len = 0;
 	int p_id, j = 0, len_address;
@@ -59,29 +115,23 @@ int main(void)
 
 		if (strcmp("exit", buff) == 0)
 			break;
-		if (strcmp(buff, "PATH") == 0)
-			array_main = _strtok(string_path);
-		printf("%s\n%s\n%s\n", array_main[10], array_main[3], array_main[13]);
-		/**while (array_main[j] != NULL)
-		{
-			len_address = _strlen(array_main[j]);
-			if (_strcmp(array_main[j][len_address - 1], slash) != 0)
-			{
-				array_main[j][len_address] = slash;
-			}
-			array_main[j][len_address + 1] = buff;
-			array_main[j][len_address + 2] = "\0";
-			j++;
-		}**/
-	}
-	p_id = fork();
-	if (p_id == 0)
-	{
-		if (execve(buff, arg, NULL) == -1)
-			perror("Error");
-	}
-	else
-		wait(NULL);
 
-	return (0);
+		array_main = _strtok(string_path);
+		printf("%s\n%s\n", array_main[0], array_main[5]);
+
+		final_path = check_array(array_main, buff);
+
+		buff = final_path;
+		printf("%s\n%s\n", buff, final_path);
+		p_id = fork();
+		if (p_id == 0)
+		{
+			if (execve(buff, arg, NULL) == -1)
+				perror("Error");
+		}
+		else
+			wait(NULL);
+
+		return (0);
+	}
 }
