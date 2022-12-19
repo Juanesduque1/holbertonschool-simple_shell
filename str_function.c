@@ -63,6 +63,7 @@ char *_getenv(const char *name)
 {
 	int i, j;
 	int status;
+	extern char **environ;
 
 	for (i = 0; environ[i] != NULL; i++)
 	{

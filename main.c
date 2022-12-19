@@ -64,23 +64,22 @@ char *check_array(char **array_main, char *buff)
 *Return: Always 0
 */
 
-char **_strtok(char *string_path)
+char **_strtok(char *string_pathcpy)
 {
 	int i = 0, j = 0;
 	char *t;
 	char **array;
 
 	array = (char **)malloc(sizeof(char *) * 1024);
-	while (string_path[i])
+	while (string_pathcpy[i])
 		i++;
-	while ((t = strtok(string_path, ":")) != NULL)
+	while ((t = strtok(string_pathcpy, ":")) != NULL)
 	{
 		if (t == NULL)
-		{
 			break;
-		}
+
 		array[j] = t;
-		string_path = NULL;
+		string_pathcpy = NULL;
 		j++;
 	}
 	return (&(*array));
@@ -98,7 +97,7 @@ int main(void)
 	size_t len = 0;
 	ssize_t buff_len = 0;
 	int p_id, j = 0, len_address;
-	char *string_path = getenv("PATH"), *arg[100];
+	char *string_path = getenv("PATH"), *arg[100], *string_pathcpy;
 
 	while (1)
 	{
@@ -115,8 +114,10 @@ int main(void)
 
 		if (strcmp("exit", buff) == 0)
 			break;
+		
+		string_pathcpy = strcpy(string_pathcpy, string_path);
 
-		array_main = _strtok(string_path);
+		array_main = _strtok(string_pathcpy);
 		printf("%s\n%s\n", array_main[0], array_main[5]);
 
 		final_path = check_array(array_main, buff);
