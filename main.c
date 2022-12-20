@@ -64,7 +64,7 @@ char *check_array(char **array_main, char *buff)
 *Return: Always 0
 */
 
-char **_strtok(char *string_pathcpy)
+char **_divstring(char *string_pathcpy)
 {
 	int i = 0, j = 0;
 	char *t;
@@ -117,7 +117,7 @@ int main(void)
 		
 		string_pathcpy = strcpy(string_pathcpy, string_path);
 
-		array_main = _strtok(string_pathcpy);
+		array_main = _divstring(string_pathcpy);
 		printf("%s\n%s\n", array_main[0], array_main[5]);
 
 		final_path = check_array(array_main, buff);

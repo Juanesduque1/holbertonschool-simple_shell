@@ -83,3 +83,28 @@ char *_getenv(const char *name)
 	}
 	return (NULL);
 }
+
+/**
+**_strcat - Concatenate two strings
+*@dest: Variable of the destination
+*@src: Variable of the string
+*
+*Return: Always 0
+*/
+
+char *_strcat(char *dest, char *str)
+{
+	int i = 0;
+	int j = 0;
+
+	while (dest[i] != '\0')
+		i++;
+
+	while (str[j] != '\0')
+	{
+		dest[i + j] = str[j];
+		j++;
+	}
+	dest[i + j] = '\0';
+	return (dest);
+}
