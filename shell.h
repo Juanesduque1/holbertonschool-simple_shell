@@ -10,7 +10,6 @@
 #include <sys/stat.h>
 
 /* Prototypes*/
-int main(void);
 char **_divstring(char *string_pathcpy, char *separator);
 int _strlen(char *s);
 int _strcmp(char *s1, char *s2);

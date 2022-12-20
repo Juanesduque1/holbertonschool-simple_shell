@@ -75,19 +75,16 @@ char **_divstring(char *string_pathcpy, char *separator)
 	char *t;
 	char **array;
 
-	array = (char **)malloc(sizeof(char *) * 1024);
+	array = (char **)calloc(100, sizeof(char *));
 	while (string_pathcpy[i])
 		i++;
 	while ((t = strtok(string_pathcpy, separator)) != NULL)
 	{
-		if (t == NULL)
-			break;
-
 		array[j] = t;
 		string_pathcpy = NULL;
 		j++;
 	}
-	return (&(*array));
+	return (array);
 }
 
 /**
@@ -96,15 +93,14 @@ char **_divstring(char *string_pathcpy, char *separator)
 *Return: integer
 */
 
-int main(void)
+int main(int argc, char **argv, char **env)
 {
 	char *buff = NULL, *final_path;
 	size_t len = 0;
 	ssize_t buff_len = 0;
 	pid_t p_id;
-	int j = 0, len_addres, n;
-	int status;
-	char *string_path = getenv("PATH"), **args, *string_pathcpy;
+	int n, status;
+	char **args;
 
 	while (1)
 	{
@@ -122,17 +118,16 @@ int main(void)
 
 		args = _divstring(buff, " ");
 
-		final_path = check_array(args[0]);
+		args[0] = check_array(args[0]);
 
 		p_id = fork();
 		if (p_id == 0)
 		{
-			if (execve(final_path, args, NULL) == -1)
+
+			if (execve(args[0], args, NULL) == -1)
 			{
-				exit(-1);
+				perror("Error");
 			}
-			status = 0;
-			exit(0);
 		}
 		else
 		{
@@ -142,14 +137,14 @@ int main(void)
 				status = WEXITSTATUS(status);
 			}
 		}
+		/**printf("%s\n", args[0]);
 		while (args[n])
 		{
 			free(args[n]);
 			n++;
 		}
 		free(args);
+		printf("%s\n", args[0]);**/
 	}
-	free(string_path);
-	free(string_pathcpy);
 	return (0);
 }
