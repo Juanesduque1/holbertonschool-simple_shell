@@ -1,14 +1,14 @@
 #include "shell.h"
 
 /**
-**_strcat - Concatenate two strings
+**_strcatfun - Concatenate two strings
 *@dest: Variable of the destination
 *@src: Variable of the string
 *
 *Return: Always 0
 */
 
-char *_strcat(char *dest, char *str)
+char *_strcatfun(char *dest, char *str)
 {
 	int i = 0;
 	int j = 0;
@@ -33,26 +33,33 @@ char *_strcat(char *dest, char *str)
 *Return: Always 0
 */
 
-char *check_array(char **array_main, char *buff)
+char *check_array(char *buff)
 {
-	char *final_path;
+	char *final_path, *string_pathcpy, **array_main;
+	char *string_path = getenv("PATH");
 	int j = 0, len_address;
 	struct stat info;
+
+	string_pathcpy = malloc(strlen(string_path) + 1);
+	string_pathcpy = strcpy(string_pathcpy, string_path);
+	array_main = _divstring(string_pathcpy);
 
 	while (array_main[j] != NULL)
 	{
 		len_address = strlen(array_main[j]);
 		if (array_main[j][len_address - 1] != '/')
-			final_path = _strcat(array_main[j], "/");
+			final_path = _strcatfun(array_main[j], "/");
 
-		final_path = _strcat(array_main[j], buff);
+		final_path = _strcatfun(array_main[j], buff);
 
 		if (stat(final_path, &info) == 0)
 			break;
 
+		printf("%s\n",array_main[j]);
 		j++;
 	}
-
+	free(string_pathcpy);
+	free(array_main);
 	return (final_path);
 }
 
@@ -93,7 +100,7 @@ char **_divstring(char *string_pathcpy)
 
 int main(void)
 {
-	char *buff = NULL, **array_main, *final_path;
+	char *buff = NULL, *final_path;
 	size_t len = 0;
 	ssize_t buff_len = 0;
 	int p_id, j = 0, len_address;
@@ -114,16 +121,11 @@ int main(void)
 
 		if (strcmp("exit", buff) == 0)
 			break;
-		
-		string_pathcpy = strcpy(string_pathcpy, string_path);
 
-		array_main = _divstring(string_pathcpy);
-		printf("%s\n%s\n", array_main[0], array_main[5]);
-
-		final_path = check_array(array_main, buff);
+		final_path = check_array(buff);
 
 		buff = final_path;
-		printf("%s\n%s\n", buff, final_path);
+		printf("%s\n", buff);
 		p_id = fork();
 		if (p_id == 0)
 		{
@@ -133,6 +135,8 @@ int main(void)
 		else
 			wait(NULL);
 
-		return (0);
 	}
+	free(string_path);
+	free(string_pathcpy);
+	return (0);
 }

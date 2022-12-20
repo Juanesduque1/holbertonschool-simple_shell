@@ -11,10 +11,11 @@
 
 /* Prototypes*/
 int main(void);
-char **_strtok(char *string_path);
+char **_divstring(char *string_path);
 int _strlen(char *s);
 int _strcmp(char *s1, char *s2);
 char *_strcpy(char *dest, char *src);
 char *_getenv(const char *name);
+char *_strcat(char *dest, char *str);
 
 #endif
