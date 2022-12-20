@@ -41,7 +41,7 @@ char *check_array(char *buff)
 
 	string_pathcpy = malloc(strlen(string_path) + 1);
 	string_pathcpy = strcpy(string_pathcpy, string_path);
-	array_main = _divstring(string_pathcpy);
+	array_main = _divstring(string_pathcpy, ":");
 
 	while (array_main[j] != NULL)
 	{
@@ -69,7 +69,7 @@ char *check_array(char *buff)
 *Return: Always 0
 */
 
-char **_divstring(char *string_pathcpy)
+char **_divstring(char *string_pathcpy, char *separator)
 {
 	int i = 0, j = 0;
 	char *t;
@@ -78,7 +78,7 @@ char **_divstring(char *string_pathcpy)
 	array = (char **)malloc(sizeof(char *) * 1024);
 	while (string_pathcpy[i])
 		i++;
-	while ((t = strtok(string_pathcpy, ":")) != NULL)
+	while ((t = strtok(string_pathcpy, separator)) != NULL)
 	{
 		if (t == NULL)
 			break;
@@ -102,9 +102,9 @@ int main(void)
 	size_t len = 0;
 	ssize_t buff_len = 0;
 	pid_t p_id;
-	int j = 0, len_address;
+	int j = 0, len_addres, n;
 	int status;
-	char *string_path = getenv("PATH"), *arg[100], *string_pathcpy;
+	char *string_path = getenv("PATH"), **args, *string_pathcpy;
 
 	while (1)
 	{
@@ -116,18 +116,18 @@ int main(void)
 			break;
 
 		buff[buff_len - 1] = '\0';
-		arg[0] = buff;
-		arg[1] = NULL;
 
 		if (strcmp("exit", buff) == 0)
 			break;
 
-		final_path = check_array(buff);
+		args = _divstring(buff, " ");
+
+		final_path = check_array(args[0]);
 
 		p_id = fork();
 		if (p_id == 0)
 		{
-			if (execve(final_path, arg, NULL) == -1)
+			if (execve(final_path, args, NULL) == -1)
 			{
 				exit(-1);
 			}
@@ -142,6 +142,12 @@ int main(void)
 				status = WEXITSTATUS(status);
 			}
 		}
+		while (args[n])
+		{
+			free(args[n]);
+			n++;
+		}
+		free(args);
 	}
 	free(string_path);
 	free(string_pathcpy);
