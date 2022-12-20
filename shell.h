@@ -16,5 +16,6 @@ int _strcmp(char *s1, char *s2);
 char *_strcpy(char *dest, char *src);
 char *_getenv(const char *name);
 char *_strcatfun(char *dest, char *str);
+char *check_path(char *buff);
 
 #endif
