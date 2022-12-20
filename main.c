@@ -29,7 +29,6 @@ char *_strcatfun(char *dest, char *str)
 **check_array - Checks if array's address exists
 *@array_main: Array of addresses
 *@buff: Buffer that contains command
-*
 *Return: Always 0
 */
 
@@ -48,14 +47,14 @@ char *check_array(char *buff)
 	{
 		len_address = strlen(array_main[j]);
 		if (array_main[j][len_address - 1] != '/')
+		{
 			final_path = _strcatfun(array_main[j], "/");
+		}
 
 		final_path = _strcatfun(array_main[j], buff);
 
 		if (stat(final_path, &info) == 0)
 			break;
-
-		printf("%s\n",array_main[j]);
 		j++;
 	}
 	free(string_pathcpy);
@@ -67,7 +66,6 @@ char *check_array(char *buff)
 **_divstring - Executes strtok function to get PATH
 *@buff: Buffer that contains command
 *@string_path: Length of command
-*
 *Return: Always 0
 */
 
@@ -95,7 +93,7 @@ char **_divstring(char *string_pathcpy)
 /**
 **main - Executes simple shell
 *
-*Return: Always 0
+*Return: integer
 */
 
 int main(void)
@@ -103,12 +101,14 @@ int main(void)
 	char *buff = NULL, *final_path;
 	size_t len = 0;
 	ssize_t buff_len = 0;
-	int p_id, j = 0, len_address;
+	pid_t p_id;
+	int j = 0, len_address;
+	int status;
 	char *string_path = getenv("PATH"), *arg[100], *string_pathcpy;
 
 	while (1)
 	{
-		if (isatty(0))
+		if (isatty(STDIN_FILENO) != 0)
 			printf("$ ");
 
 		buff_len = getline(&buff, &len, stdin);
@@ -124,17 +124,24 @@ int main(void)
 
 		final_path = check_array(buff);
 
-		buff = final_path;
-		printf("%s\n", buff);
 		p_id = fork();
 		if (p_id == 0)
 		{
-			if (execve(buff, arg, NULL) == -1)
-				perror("Error");
+			if (execve(final_path, arg, NULL) == -1)
+			{
+				exit(-1);
+			}
+			status = 0;
+			exit(0);
 		}
 		else
-			wait(NULL);
-
+		{
+			wait(&status);
+			if (WIFEXITED(status))
+			{
+				status = WEXITSTATUS(status);
+			}
+		}
 	}
 	free(string_path);
 	free(string_pathcpy);
