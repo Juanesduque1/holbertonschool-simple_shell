@@ -57,7 +57,7 @@ char *check_array(char **array_main, char *buff)
 }
 
 /**
-**_strtok - Executes strtok function to get PATH
+**_divstring - Executes strtok function to get PATH
 *@buff: Buffer that contains command
 *@string_path: Length of command
 *
