@@ -24,10 +24,11 @@ int main(int argc, char **argv, char **env)
 		buff_len = getline(&buff, &len, stdin);
 		if (buff_len == -1)
 			break;
-		if (strcmp("exit", buff) == 0)
-			break;
 
 		buff[buff_len - 1] = '\0';
+
+		if (strcmp("exit", buff) == 0)
+			break;
 
 		args = _divstring(buff, " ");
 		args[0] = check_path(args[0]);
@@ -36,9 +37,7 @@ int main(int argc, char **argv, char **env)
 		if (p_id == 0)
 		{
 			if (execve(args[0], args, NULL) == -1)
-			{
 				perror("Error");
-			}
 		}
 		else
 		{
