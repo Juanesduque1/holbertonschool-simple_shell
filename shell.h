@@ -9,13 +9,16 @@
 #include <unistd.h>
 #include <sys/stat.h>
 
+/** Global Variables **/
+extern char **environ;
+
 /* Prototypes*/
+char *check_path(char *buff);
 char **_divstring(char *string_pathcpy, char *separator);
 int _strlen(char *s);
 int _strcmp(char *s1, char *s2);
 char *_strcpy(char *dest, char *src);
 char *_getenv(const char *name);
 char *_strcatfun(char *dest, char *str);
-char *check_path(char *buff);
 
 #endif
