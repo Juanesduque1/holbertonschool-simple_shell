@@ -22,12 +22,14 @@ int main(void)
 			printf("$ ");
 
 		buff_len = getline(&buff, &len, stdin);
-		if (buff_len == -1)
+		if (buff_len == -1 || _strcmp("exit\n", buff) == 0)
+		{
+			free(buff);
 			break;
+		}
+			
 		buff[buff_len - 1] = '\0';
-		if (_strcmp("exit", buff) == 0)
-			break;
-		else if (_strcmp("env", buff) == 0)
+		if (_strcmp("env", buff) == 0)
 			_env();
 		args = _divstring(buff, " ");
 		args[0] = check_path(args[0]);
@@ -36,7 +38,7 @@ int main(void)
 			p_id = fork();
 			if (p_id == 0)
 			{
-				if (execve(args[0], args, NULL) == -1)
+				if (execve(args[0], args, environ) == -1)
 					perror("Error");
 			}
 			else
@@ -48,6 +50,7 @@ int main(void)
 		}
 		else
 			perror("Error");
+		free(args);
 	}
 	return (0);
 }
