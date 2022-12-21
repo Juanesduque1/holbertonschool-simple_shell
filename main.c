@@ -27,7 +27,7 @@ int main(int argc, char **argv, char **env)
 		buff[buff_len - 1] = '\0';
 		if (strcmp("exit", buff) == 0)
 			break;
-		else if (strcmp("env", buff))
+		else if (strcmp("env", buff) == 0)
 			_env();
 		args = _divstring(buff, " ");
 		args[0] = check_path(args[0]);
