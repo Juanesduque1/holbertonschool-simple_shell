@@ -9,7 +9,7 @@ char *check_path(char *buff)
 {
 	char *final_path, *string_pathcpy, **array_main;
 	char *string_path = getenv("PATH");
-	int j = 0, len_address;
+	int j = 0, len_address, checker = 0;
 	struct stat info;
 
 	string_pathcpy = malloc(strlen(string_path) + 1);
@@ -25,9 +25,14 @@ char *check_path(char *buff)
 		final_path = _strcatfun(array_main[j], buff);
 
 		if (stat(final_path, &info) == 0)
+		{
+			checker = 1;
 			break;
+		}
 		j++;
 	}
+	if (checker == 0)
+		return (NULL);
 	free(string_pathcpy);
 	free(array_main);
 	return (final_path);
