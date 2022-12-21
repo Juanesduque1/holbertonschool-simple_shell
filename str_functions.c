@@ -4,7 +4,7 @@
  *_strcmp -   compares two strings
  *@s1: value pointers
  *@s2: value pointers
- *Return: Return value poiners dest
+ *Return: Return value integer
  */
 int _strcmp(char *s1, char *s2)
 {
@@ -37,7 +37,7 @@ int _strlen(char *s)
  *_strcpy - Function that copy the string
  *@dest: value pointers
  *@src: value pointers
- *Return: Return value pointers
+ *Return: Return value pointers char
  */
 
 char *_strcpy(char *dest, char *src)
@@ -53,7 +53,7 @@ char *_strcpy(char *dest, char *src)
 /**
  *_getenv - Function  get an environment variable
  *@name: value pointers const char
- *Return: Return value pointers char
+ *Return: Return char
  */
 
 char *_getenv(const char *name)
@@ -81,7 +81,7 @@ char *_getenv(const char *name)
 **_strcatfun - Concatenates two strings
 *@dest: Variable of the destination
 *@str: Variable of the string
-*Return: Always 0
+*Return: variable char
 */
 
 char *_strcatfun(char *dest, char *str)

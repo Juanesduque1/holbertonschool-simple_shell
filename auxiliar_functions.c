@@ -2,23 +2,23 @@
 /**
 **check_path - Checks if array's address exists
 *@buff: Buffer that contains command
-*Return: Always 0
+*Return: variable char
 */
 
 char *check_path(char *buff)
 {
 	char *final_path, *string_pathcpy, **array_main;
-	char *string_path = getenv("PATH");
+	char *string_path = _getenv("PATH");
 	int j = 0, len_address, checker = 0;
 	struct stat info;
 
 	string_pathcpy = malloc(strlen(string_path) + 1);
-	string_pathcpy = strcpy(string_pathcpy, string_path);
+	string_pathcpy = _strcpy(string_pathcpy, string_path);
 	array_main = _divstring(string_pathcpy, ":");
 
 	while (array_main[j] != NULL)
 	{
-		len_address = strlen(array_main[j]);
+		len_address = _strlen(array_main[j]);
 		if (array_main[j][len_address - 1] != '/')
 			final_path = _strcatfun(array_main[j], "/");
 
@@ -42,15 +42,15 @@ char *check_path(char *buff)
 **_divstring - Auxiliar function to divide a string
 *@string_pathcpy: String that is going to be divided
 *@separator: Separator that indicates the division point
-*Return: Always Zero
+*Return: variable char
 */
 
 char **_divstring(char *string_pathcpy, char *separator)
 {
 	int i = 0, j = 0;
-	char *t,  **array;
+	char *t, **array;
 
-	array = (char **)calloc(100, sizeof(char *));
+	array = (char **)_calloc(100, sizeof(char *));
 	while (string_pathcpy[i])
 		i++;
 	while ((t = strtok(string_pathcpy, separator)) != NULL)
@@ -60,4 +60,30 @@ char **_divstring(char *string_pathcpy, char *separator)
 		j++;
 	}
 	return (array);
+}
+/**
+ **_calloc- function malloc and free
+ *@nmemb: variable malloc
+ *@size: variable malloc
+ *Return: zero
+ */
+void *_calloc(unsigned int nmemb, unsigned int size)
+{
+	char *a;
+	unsigned int i;
+
+	if (nmemb == 0)
+		return (NULL);
+
+	if (size == 0)
+		return (NULL);
+
+	a = malloc(size * nmemb);
+
+	if (a == NULL)
+		return (NULL);
+	for (i = 0; i < size * nmemb; i++)
+		a[i] = 0;
+
+	return (a);
 }

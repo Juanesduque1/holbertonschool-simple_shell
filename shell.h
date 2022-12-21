@@ -21,5 +21,6 @@ char *_strcpy(char *dest, char *src);
 char *_getenv(const char *name);
 char *_strcatfun(char *dest, char *str);
 void _env(void);
+void *_calloc(unsigned int nmemb, unsigned int size);
 
 #endif

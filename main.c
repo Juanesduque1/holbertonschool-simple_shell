@@ -8,7 +8,7 @@
 *Return: Always Zero
 */
 
-int main(int argc, char **argv, char **env)
+int main(void)
 {
 	char **args, *buff = NULL;
 	int status;
@@ -25,9 +25,9 @@ int main(int argc, char **argv, char **env)
 		if (buff_len == -1)
 			break;
 		buff[buff_len - 1] = '\0';
-		if (strcmp("exit", buff) == 0)
+		if (_strcmp("exit", buff) == 0)
 			break;
-		else if (strcmp("env", buff) == 0)
+		else if (_strcmp("env", buff) == 0)
 			_env();
 		args = _divstring(buff, " ");
 		args[0] = check_path(args[0]);
