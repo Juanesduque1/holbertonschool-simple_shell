@@ -8,10 +8,9 @@
 int main(void)
 {
 	char **args, *buff = NULL;
-	int status = 0;
+	int status = 0, i = 0, spaces = 1;
 	size_t len = 0;
 	ssize_t buff_len = 0;
-	pid_t p_id;
 
 	while (1)
 	{
@@ -27,21 +26,22 @@ int main(void)
 		{
 			_env();
 			continue; }
+		for (i = 0; buff[i] != '\0'; i++) /* Check if input has spaces */
+		{
+			if (buff[i] != ' ')
+			{
+				spaces = 0;
+				break; }
+		}
+		if (spaces == 1)
+		{
+			status = 0;
+			continue; }
 		args = _divstring(buff, " ");  /* Divide input and allocate it in args */
 		args[0] = check_path(args[0]); /* Check if command is valid */
+
 		if (args[0] != NULL)
-		{
-			p_id = fork(); /* Create new process with fork */
-			if (p_id == 0)
-			{
-				if (execve(args[0], args, environ) == -1) /* Execute valid command */
-					perror("Error"); }
-			else
-			{
-				wait(&status);					  /* Wait until child process exits */
-				if (WIFEXITED(status))			  /* True if child process terminates normally */
-					status = WEXITSTATUS(status); } /* Returns exit status specified */
-		}
+			status = fork_function(args); /* Executes fork and execve function */
 		else
 			perror("Error"); /* Displays error's description if not forked */
 		free(args);

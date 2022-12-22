@@ -18,6 +18,7 @@ char **_divstring(char *string_pathcpy, char *separator);
 char *_getenv(const char *name);
 char *_strcpy(char *dest, char *src);
 char *_strcatfun(char *dest, char *str);
+int fork_function(char **args);
 int _strcmp(char *s1, char *s2);
 int _strlen(char *s);
 void *_calloc(unsigned int nmemb, unsigned int size);

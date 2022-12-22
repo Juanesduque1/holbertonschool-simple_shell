@@ -105,3 +105,26 @@ void _env(void)
 		i++;
 	}
 }
+/**
+**fork_function - Executes fork and 
+*@args: Array of paths to execute
+*Return: Always Zero
+*/
+
+int fork_function(char **args)
+{
+	pid_t p_id;
+	int status = 0;
+
+	p_id = fork(); /* Create new process with fork */
+			if (p_id == 0)
+			{
+				if (execve(args[0], args, environ) == -1) /* Execute valid command */
+					perror("Error"); }
+			else
+			{
+				wait(&status);					  /* Wait until child process exits */
+				if (WIFEXITED(status))			  /* True if child process terminates normally */
+					status = WEXITSTATUS(status); } /* Returns exit status specified */
+	return (status);
+}
