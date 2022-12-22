@@ -13,29 +13,29 @@ char *check_path(char *buff)
 	int j = 0, len_address, checker = 0;
 	struct stat info;
 
-	if (stat(buff, &info) == 0)
+	if (stat(buff, &info) == 0) /* Check if input is already valid and exists */
 		return (buff);
 
 	string_pathcpy = malloc(strlen(string_path) + 1);
-	string_pathcpy = _strcpy(string_pathcpy, string_path);
-	array_main = _divstring(string_pathcpy, ":");
+	string_pathcpy = _strcpy(string_pathcpy, string_path); /* Copies string */
+	array_main = _divstring(string_pathcpy, ":"); /* Divides string in ":" */
 
-	while (array_main[j] != NULL)
+	while (array_main[j] != NULL) /* Loops until the allocated path is NULL */
 	{
 		len_address = _strlen(array_main[j]);
-		if (array_main[j][len_address - 1] != '/')
-			final_path = _strcatfun(array_main[j], "/");
+		if (array_main[j][len_address - 1] != '/') /* Checks if last char is '/' */
+			final_path = _strcatfun(array_main[j], "/"); /*If is not, concatenates it */
 
-		final_path = _strcatfun(array_main[j], buff);
+		final_path = _strcatfun(array_main[j], buff); /* Concatenates command */
 
-		if (stat(final_path, &info) == 0)
+		if (stat(final_path, &info) == 0) /* Check if given path exists */
 		{
 			checker = 1;
 			break;
 		}
 		j++;
 	}
-	if (checker == 0)
+	if (checker == 0) /* If path isn't found, returns with NULL */
 		return (NULL);
 	free(string_pathcpy);
 	free(array_main);
@@ -89,4 +89,19 @@ char *_getenv(const char *name)
 			return (&environ[i][j + 1]);
 	}
 	return (NULL);
+}
+/**
+**_env - Print environment
+*Return: Always Zero
+*/
+
+void _env(void)
+{
+	int i = 0;
+
+	while (environ[i])
+	{
+		printf("%s\n", environ[i]);
+		i++;
+	}
 }
