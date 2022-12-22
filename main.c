@@ -8,7 +8,7 @@
 int main(void)
 {
 	char **args, *buff = NULL;
-	int status;
+	int status = 0;
 	size_t len = 0;
 	ssize_t buff_len = 0;
 	pid_t p_id;
