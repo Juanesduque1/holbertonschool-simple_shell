@@ -3,11 +3,14 @@
 .SH NAME
 hsh - POSIX-compliant command interpreter
 
-.SH SYNOPSIS
+.SH SYNOPSIS FOR INTERACTIVE MODE
 hsh [options]
 
+.SH SYNOPSIS FOR NON INTERACTIVE MODE
+echo "[command] [options]" | ./hsh
+
 .SH DESCRIPTION
-This project is a basic recreation of the Unix Shell command interpreter, it was made in Holberton School for the software development program.
+This project is a basic recreation of the Unix Shell command interpreter, it was made for Holberton School in C programming language for the software development program.
 
 .SH OPTIONS
 These options are the allowed commands that when executed performs the following actions:
@@ -17,25 +20,27 @@ These options are the allowed commands that when executed performs the following
 The ls command displays the names of files and directories contained within the current directory, as well as any requested, associated information, depending on the invoked option.
 
 .RE
-.B -betty [option]
+.B -echo [option]
 .RS
-The betty command is a C coding and commenting style checker, this option will check if the file/s passed as argument/s fits the Betty Style.
+Writes its arguments separated by blanks and terminated by a new line on the standard output.
 
 .RE
-.B -pwd [option]
+.B -pwd
 .RS
 Prints the full path of the current working directory.
 
 .RE
-.B -env [option]
+.B -env
 .RS
-Set environment and execute command (depending on the option invoked), or print environment.
+Prints current environment.
 
 .RE
-.B -exit [option]
+.B -exit
 .RS
 The exit command causes normal process termination of the Shell.
 
+.SH BUGS
+No known bugs.
 
 .SH AUTHORS
 

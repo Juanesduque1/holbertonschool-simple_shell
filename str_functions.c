@@ -1,11 +1,12 @@
 #include "shell.h"
 
 /**
- *_strcmp -   compares two strings
- *@s1: value pointers
- *@s2: value pointers
- *Return: Return value integer
+ *_strcmp - Compares two strings
+ *@s1: First string to compare
+ *@s2: Second string to compare
+ *Return: 0 if both strings are the same
  */
+
 int _strcmp(char *s1, char *s2)
 {
 	while (*s1 != '\0' || *s2 != '\0')
@@ -19,9 +20,9 @@ int _strcmp(char *s1, char *s2)
 	return (0);
 }
 /**
- *_strlen - takes a string as an argument and returns its length
- *@s: value pointers
- *Return: Return value i
+ *_strlen - Gets a string as an argument and returns it's length
+ *@s: String to get lenght from
+ *Return: Lenght of a string
  */
 
 int _strlen(char *s)
@@ -34,10 +35,10 @@ int _strlen(char *s)
 	return (i);
 }
 /**
- *_strcpy - Function that copy the string
- *@dest: value pointers
- *@src: value pointers
- *Return: Return value pointers char
+ *_strcpy - Function that copies the string
+ *@dest: String to copy to
+ *@src: String to copy from
+ *Return: Copied string
  */
 
 char *_strcpy(char *dest, char *src)
@@ -51,37 +52,10 @@ char *_strcpy(char *dest, char *src)
 	return (dest);
 }
 /**
- *_getenv - Function  get an environment variable
- *@name: value pointers const char
- *Return: Return char
- */
-
-char *_getenv(const char *name)
-{
-	int i, j, status;
-
-	for (i = 0; environ[i] != NULL; i++)
-	{
-		status = 1;
-		for (j = 0; environ[i][j] != '='; j++)
-		{
-			if (name[j] != environ[i][j])
-			{
-				status = 0;
-				break;
-			}
-		}
-		if (status)
-			return (&environ[i][j + 1]);
-	}
-	return (NULL);
-}
-
-/**
 **_strcatfun - Concatenates two strings
 *@dest: Variable of the destination
 *@str: Variable of the string
-*Return: variable char
+*Return: Concatenated string
 */
 
 char *_strcatfun(char *dest, char *str)
@@ -98,4 +72,31 @@ char *_strcatfun(char *dest, char *str)
 	}
 	dest[i + j] = '\0';
 	return (dest);
+}
+/**
+ **_calloc- function malloc and free
+ *@nmemb: Quantity of elements entering the function
+ *@size: Size to allocate
+ *Return: Reserved variable with calloc
+ */
+
+void *_calloc(unsigned int nmemb, unsigned int size)
+{
+	char *a;
+	unsigned int i;
+
+	if (nmemb == 0)
+		return (NULL);
+
+	if (size == 0)
+		return (NULL);
+
+	a = malloc(size * nmemb);
+
+	if (a == NULL)
+		return (NULL);
+	for (i = 0; i < size * nmemb; i++)
+		a[i] = 0;
+
+	return (a);
 }

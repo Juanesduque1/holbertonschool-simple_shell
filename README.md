@@ -22,12 +22,12 @@ After execution, the command to run our Shell and be able to enter action comman
 	$ ./hsh
 
 ## Command list
-The next list is a summarized chart of the allowed commands that can be executed in our shell.
+The next list is a summarized chart of some the allowed commands that can be executed in our shell.
 | Command  | Description |
 | ------------- |:-------------:|
 | ls      | Displays the names of files and directories contained within the current directory.    |
-| betty      | Checks if the coding and commenting style fits Betty style code.    |
 | pwd      | Prints the full path of the current working directory. |
+| echo      | Writes its arguments separated by blanks and terminated by a new line on the standard output.    |
 | env      | Set environment and execute command or print environment.    |
 | exit      | The exit command causes normal process termination of the Shell.    |
 
@@ -36,7 +36,7 @@ The next list is a summarized chart of the allowed commands that can be executed
 This shell can be executed two different ways, the first one is in the interactive mode, this means that after the shell is compiled, the user can call the commands directly in the executable file. Working as the following:
 
 	$ ./hsh
-	($) /bin/ls
+	($) ls
 	hsh main.c shell.c
 	($)
 	($) exit

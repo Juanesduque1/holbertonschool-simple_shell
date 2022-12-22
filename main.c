@@ -2,9 +2,6 @@
 
 /**
 **main - Executes simple shell
-*@argc: Quantity of elements that gets the function
-*@argv: Arguments of the function
-*@env: Environment variable*
 *Return: Always Zero
 */
 
@@ -20,14 +17,11 @@ int main(void)
 	{
 		if (isatty(STDIN_FILENO) != 0)
 			printf("$ ");
-
 		buff_len = getline(&buff, &len, stdin);
 		if (buff_len == -1 || _strcmp("exit\n", buff) == 0)
 		{
 			free(buff);
-			break;
-		}
-			
+			break; }
 		buff[buff_len - 1] = '\0';
 		if (_strcmp("env", buff) == 0)
 			_env();
@@ -54,11 +48,11 @@ int main(void)
 	}
 	return (0);
 }
-
 /**
 **_env - Print environment
 *Return: Always Zero
 */
+
 void _env(void)
 {
 	int i = 0;

@@ -1,8 +1,9 @@
 #include "shell.h"
+
 /**
 **check_path - Checks if array's address exists
 *@buff: Buffer that contains command
-*Return: variable char
+*Return: Path of the command if found, NULL otherwise
 */
 
 char *check_path(char *buff)
@@ -37,12 +38,11 @@ char *check_path(char *buff)
 	free(array_main);
 	return (final_path);
 }
-
 /**
 **_divstring - Auxiliar function to divide a string
 *@string_pathcpy: String that is going to be divided
 *@separator: Separator that indicates the division point
-*Return: variable char
+*Return: Divided array
 */
 
 char **_divstring(char *string_pathcpy, char *separator)
@@ -62,28 +62,28 @@ char **_divstring(char *string_pathcpy, char *separator)
 	return (array);
 }
 /**
- **_calloc- function malloc and free
- *@nmemb: variable malloc
- *@size: variable malloc
- *Return: zero
+ *_getenv - Function  get an environment variable
+ *@name: Variable of environment to get
+ *Return: Value of the variable requested
  */
-void *_calloc(unsigned int nmemb, unsigned int size)
+
+char *_getenv(const char *name)
 {
-	char *a;
-	unsigned int i;
+	int i, j, status;
 
-	if (nmemb == 0)
-		return (NULL);
-
-	if (size == 0)
-		return (NULL);
-
-	a = malloc(size * nmemb);
-
-	if (a == NULL)
-		return (NULL);
-	for (i = 0; i < size * nmemb; i++)
-		a[i] = 0;
-
-	return (a);
+	for (i = 0; environ[i] != NULL; i++)
+	{
+		status = 1;
+		for (j = 0; environ[i][j] != '='; j++)
+		{
+			if (name[j] != environ[i][j])
+			{
+				status = 0;
+				break;
+			}
+		}
+		if (status)
+			return (&environ[i][j + 1]);
+	}
+	return (NULL);
 }
