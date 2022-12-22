@@ -13,7 +13,7 @@ echo "[command] [options]" | ./hsh
 This project is a basic recreation of the Unix Shell command interpreter, it was made for Holberton School in C programming language for the software development program.
 
 .SH OPTIONS
-These options are the allowed commands that when executed performs the following actions:
+These are some allowed commands that when executed performs the following actions:
 
 .B -ls [option]
 .RS
