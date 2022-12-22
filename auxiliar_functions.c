@@ -13,6 +13,9 @@ char *check_path(char *buff)
 	int j = 0, len_address, checker = 0;
 	struct stat info;
 
+	if (stat(buff, &info) == 0)
+		return (buff);
+
 	string_pathcpy = malloc(strlen(string_path) + 1);
 	string_pathcpy = _strcpy(string_pathcpy, string_path);
 	array_main = _divstring(string_pathcpy, ":");
