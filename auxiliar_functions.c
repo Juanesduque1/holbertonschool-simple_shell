@@ -18,12 +18,12 @@ char *check_path(char *buff)
 
 	string_pathcpy = malloc(strlen(string_path) + 1);
 	string_pathcpy = _strcpy(string_pathcpy, string_path); /* Copies string */
-	array_main = _divstring(string_pathcpy, ":"); /* Divides string in ":" */
+	array_main = _divstring(string_pathcpy, ":");		   /* Divides string in ":" */
 
 	while (array_main[j] != NULL) /* Loops until the allocated path is NULL */
 	{
 		len_address = _strlen(array_main[j]);
-		if (array_main[j][len_address - 1] != '/') /* Checks if last char is '/' */
+		if (array_main[j][len_address - 1] != '/')		 /* Checks if last char is '/' */
 			final_path = _strcatfun(array_main[j], "/"); /*If is not, concatenates it */
 
 		final_path = _strcatfun(array_main[j], buff); /* Concatenates command */
@@ -106,7 +106,7 @@ void _env(void)
 	}
 }
 /**
-**fork_function - Executes fork and 
+**fork_function - Executes fork and
 *@args: Array of paths to execute
 *Return: Always Zero
 */
@@ -117,14 +117,16 @@ int fork_function(char **args)
 	int status = 0;
 
 	p_id = fork(); /* Create new process with fork */
-			if (p_id == 0)
-			{
-				if (execve(args[0], args, environ) == -1) /* Execute valid command */
-					perror("Error"); }
-			else
-			{
-				wait(&status);					  /* Wait until child process exits */
-				if (WIFEXITED(status))			  /* True if child process terminates normally */
-					status = WEXITSTATUS(status); } /* Returns exit status specified */
+	if (p_id == 0)
+	{
+		if (execve(args[0], args, environ) == -1) /* Execute valid command */
+			perror("Error");
+	}
+	else
+	{
+		wait(&status); /* Wait until child process exits */
+		if (WIFEXITED(status)) /* True if child process terminates normally */
+			status = WEXITSTATUS(status);
+	} /* Returns exit status specified */
 	return (status);
 }

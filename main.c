@@ -16,7 +16,7 @@ int main(void)
 	{
 		if (isatty(STDIN_FILENO) != 0)
 			printf("$ ");
-		buff_len = getline(&buff, &len, stdin);				/* Obtaining user's command */
+		buff_len = getline(&buff, &len, stdin);	/* Obtaining user's command */
 		if (buff_len == -1 || _strcmp("exit\n", buff) == 0) /*Check if its "exit" */
 		{
 			free(buff);
